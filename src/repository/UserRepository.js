@@ -6,7 +6,7 @@ class UserRepository {
     async create(body) {
         try {
 
-            const hashPassword = cryptPassword(body.senha);
+            const hashPassword = cryptPassword(body.password);
             const createResult = await prisma.users.create({
                 data: {
                     nome: body.nome,

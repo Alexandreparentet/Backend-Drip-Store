@@ -7,7 +7,7 @@ class ProductController {
       response.status(200).json(data);
     }
     catch (error) {
-      response.status(400).json({ error: error.message });
+      response.status(400).json(error);
     }
   }
 }

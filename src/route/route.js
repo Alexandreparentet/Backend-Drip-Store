@@ -4,8 +4,9 @@ import ProductController from '../controller/ProductController.js';
 
 const route = express.Router();
 
-route.get("/products", ProductController.getAll);
-route.post("/users/register", UserController.create);
+route.get("/product/all", ProductController.getAll);
+route.post("/user/register", UserController.create);
+route.get("/user/all", UserController.getAll);
 
 
 export default route;
