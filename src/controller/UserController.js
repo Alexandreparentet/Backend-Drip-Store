@@ -1,4 +1,6 @@
 import UserRepository from "../repository/UserRepository.js";
+import { validatePassword } from "../utils/bcrypt.js";
+import LoginController from "./LoginController.js";
 
 class UserController {
     async create(request,response) {
@@ -24,6 +26,36 @@ class UserController {
  
     }
 
+    async getUnique(request,response) {
+        try {
+            const getUser = await UserRepository.getUnique(request.body);
+
+            if(!getUser) {
+                return response.status(400).json("Usuário não cadastrado no sistema!")
+            }
+            console.log("oi");
+            const verifyPassword = validatePassword(request.body.password, getUser.senha)
+            console.log(verifyPassword);
+            
+
+            if(verifyPassword === false) {
+                return response.status(404).json("Senha Inválida!")
+            }
+
+            return response.status(200).json("Login efetuado")
+
+            // return response.status(200).json(getUser);
+        }
+
+        catch(error) {
+            console.log(error);
+            
+            return response.status(400).json(error);
+        }
+    }
+
 }
 
 export default new UserController();
+
+
